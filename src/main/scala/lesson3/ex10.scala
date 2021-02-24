@@ -1,12 +1,20 @@
 package lesson3
 
 import fpinscala.datastructures._
+
+import scala.annotation.tailrec
 import scala.collection.immutable.{List => Llist}
 
 object ex10 {
-  def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = as match {
-    case Nil => z
-    case Cons(x, xs) => f(foldLeft(xs, z)(f), x)
+  def foldLeft[A, B](as: List[A], z: B)(f: (B, A) => B): B = {
+
+    @tailrec
+    def loop(bs: List[A], ff: B): B = bs match {
+      case Nil => ff
+      case Cons(x, xs) => loop(xs, f(ff, x))
+    }
+
+    loop(as, z)
   }
 
   def makeList(remain: Llist[Int]): List[Int] = {
