@@ -1,5 +1,4 @@
-package fpinscala.datastructures
-import scala.{ List => Llist}
+package lesson4
 
 // 패턴 부합을 사용해도 좋으나 map과 getOrElse를 제외한 모든 함수는 패턴 부합 없이도 구현할 수 있어야 한다.
 sealed trait Option[+A] {
@@ -64,4 +63,14 @@ object Option {
     val s = xs map (x=> math.pow(x - m, 2) / xs.length) reduceLeft (_ + _)
     Some(s)
   }
+
+  def map2[A,B,C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+    a flatMap (aa => b map (bb => f(aa, bb)))
+  }
+
+  def sequence[A](a: List[Option[A]]):Option[List[A]] =
+    a match {
+      case Nil => Some(Nil)
+      case h :: t => h flatMap (hh => sequence(t) map (hh :: _))
+    }
 }
