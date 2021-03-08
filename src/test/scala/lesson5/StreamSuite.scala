@@ -1,7 +1,7 @@
 package lesson5
 
 import org.junit._
-import org.junit.Assert.assertEquals
+import org.junit.Assert.{assertEquals, assertFalse, assertTrue}
 
 class StreamSuite {
   trait TestSets {
@@ -29,10 +29,20 @@ class StreamSuite {
 
   @Test def takeWhile(): Unit = {
     new TestSets {
-      assertEquals(n5.takeWhile(n => n == 3).toList, List(3))
-      assertEquals(n5.takeWhile(n => n == 3 || n == 5).toList, List(3, 5))
-      assertEquals(n5.takeWhile(n => List(2,3,4).contains(n)).toList, List(2, 3, 4))
+      assertEquals(n5.takeWhile(n => n == 3).toList, List(1, 2, 3))
     }
   }
 
+  @Test def forAll(): Unit = {
+    new TestSets {
+      assertFalse(n5.forAll(n => n == 3))
+      assertFalse(n5.forAll(n => n5.toList.contains(n)))
+    }
+  }
+
+  @Test def takeWhile2(): Unit = {
+    new TestSets {
+      assertEquals(n5.takeWhile2(n => n == 3).toList, List(1, 2, 3))
+    }
+  }
 }

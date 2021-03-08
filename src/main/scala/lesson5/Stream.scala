@@ -25,10 +25,38 @@ sealed trait Stream[+A] {
       else t().drop(n-1)
   }
 
+  // ex5.3) Stream에서 주어진 술어를 만족하는 선행 요소들을 모두 돌려주는 함수
   def takeWhile(p: A => Boolean): Stream[A] = this match {
     case Empty => Empty
-    case Cons(h, t) => if (p(h())) Cons(h, () => t().takeWhile(p))  else t().takeWhile(p)
+    case Cons(h, t) => if (p(h())) Cons(h, () => Empty)  else Cons(h, () => t().takeWhile(p))
   }
+
+  // p90
+  def exists(p: A => Boolean): Boolean = this match {
+    case Cons(h, t) => p(h()) || t().exists(p)
+    case _ => false
+  }
+
+  def foldRight[B](z: => B)(f: (A, => B) => B): B = this match {
+    case Cons(h, t) => f(h(), t().foldRight(z)(f))
+    case _ => z
+  }
+
+  def exists2(p: A => Boolean): Boolean =
+    foldRight(false)((a, b) => p(a) || b)
+  //
+
+  // ex5.4) 모든 요소가 주어진 술어를 만족하는지 점검하는 함수
+  def forAll(p: A => Boolean): Boolean = this match {
+    case Empty => false
+    case Cons(h, t) => p(h()) && t().forAll(p)
+  }
+  def forAll2(p: A => Boolean): Boolean =
+    foldRight(false)((a, b) => p(a) && b)
+
+  // ex5.5 takeWhile using foldRight
+  def takeWhile2(p: A => Boolean): Stream[A] = ???
+//    foldRight(Empty)((a, b) => if (p(a)) b else Cons(() => a, () => Empty))
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
