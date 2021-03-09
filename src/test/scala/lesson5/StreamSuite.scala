@@ -45,4 +45,20 @@ class StreamSuite {
       assertEquals(n5.takeWhile2(n => n == 3).toList, List(1, 2, 3))
     }
   }
+
+  @Test def `ex5.8) constant`: Unit = {
+    new TestSets {
+      println(Stream.constant(3).take(5).toList)
+      assertTrue(Stream.constant(3).exists(_ == 3))
+//      assertFalse(Stream.constant(3).exists(_ == 4))
+    }
+  }
+
+  @Test def `ex5.9) from`: Unit = {
+    new TestSets {
+      println(Stream.from(3).take(5).toList)
+      assertEquals(Stream.from(3).take(2).toList, List(3,4))
+      //      assertFalse(Stream.constant(3).exists(_ == 4))
+    }
+  }
 }
