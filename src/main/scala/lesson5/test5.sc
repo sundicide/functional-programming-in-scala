@@ -7,3 +7,4 @@ def maybeTwice2(b: Boolean, i: => Int) = {
   if (b) j+j else 0
 }
 val x = maybeTwice2(true, { println("hi"); 1 + 41 })
+
