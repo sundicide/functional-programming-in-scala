@@ -1,3 +1,4 @@
+
 val f: PartialFunction[String, String] = { case "ping" => "pong" }
 
 f("ping")
@@ -12,4 +13,15 @@ val g: PartialFunction[List[Int], String] = {
 }
 
 g.isDefinedAt(List(1,2,3))
-g(List(1,2,3)) // match error
+try {
+  g(List(1,2,3)) // match error
+} catch {
+  case e: Exception => println(e)
+}
+
+
+val l = List(1,2,3)
+val l2 = List(3,4,5)
+
+l == l2
+List("Bloch, Joshua", "Gafter, Neal") == List("Bloch, Joshua")
