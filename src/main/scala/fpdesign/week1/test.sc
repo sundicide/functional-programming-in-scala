@@ -22,6 +22,20 @@ try {
 
 val l = List(1,2,3)
 val l2 = List(3,4,5)
+val l3 = List(6,2,3)
 
 l == l2
 List("Bloch, Joshua", "Gafter, Neal") == List("Bloch, Joshua")
+
+val k = 2
+val k2 = 3
+math.min(k, k2)
+
+3 :: l
+
+
+l3 == l3.sorted
+
+l3 == l3
+
+

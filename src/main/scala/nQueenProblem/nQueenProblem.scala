@@ -46,20 +46,20 @@ object nQueenProblem {
         val ct = makeChessTable(n)
         val l = setOneToIndexInList(ct, 0, d)
 
-        def innerLoop(ll:List[List[Int]], j: Int): Unit = {
-          if (j == n) printListInList(ll)
+        def innerLoop(ll:List[List[Int]], j: Int, k: Int): List[List[Int]] = {
+          if (j == n) ll
+          else if (k == n) Nil
           else {
-            (0 until n).foreach(k => {
-              if (isCollision(ll, d, j, k)) {
-                Nil
-              } else {
-                val newL = setOneToIndexInList(ll, j, k)
-                innerLoop(newL, j+1)
-              }
-            })
+            if (isCollision(ll, d, j, k))
+              innerLoop(ll, j, k + 1)
+            else {
+              val newL = setOneToIndexInList(ll, j, k)
+              innerLoop(newL, j+1, 0)
+              innerLoop(newL, j, k+1)
+            }
           }
         }
-        innerLoop(l, 1)
+        printListInList(innerLoop(l, 1, 0))
       })
     }
     loop()
