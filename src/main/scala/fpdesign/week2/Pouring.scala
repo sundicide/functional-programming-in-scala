@@ -71,11 +71,14 @@ class Pouring(capicity: Vector[Int]) {
 }
 object test {
   def main(args: Array[String]): Unit = {
-    val problem = new Pouring(Vector(4, 9, 19))
+    val problem = new Pouring(Vector(4, 9))
+
     println(problem.moves)
+
+    println(problem.pathSets)
 
     println(problem.pathSets.take(3).toList)
 
-    println(problem.solutions(6))
+    println(problem.solutions(6).toList)
   }
 }
