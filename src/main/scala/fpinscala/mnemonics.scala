@@ -1,7 +1,7 @@
 package fpinscala
 
 object mnemonics {
-  val textURL = "https://raw.githubusercontent.com/sharfah/scala-coursera/master/forcomp/src/main/resources/forcomp/linuxwords.txt"
+  val textURL = "https://raw.githubusercontent.com/sundicide/functional-programming-in-scala/master/src/main/scala/fpinscala/linuxwords.txt"
   val in = scala.io.Source.fromURL(textURL)
   val words = in.getLines.toList filter (word => word forall (chr => chr.isLetter))
 
